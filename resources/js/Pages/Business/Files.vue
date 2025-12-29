@@ -62,13 +62,13 @@
                 size="sm"
                 @click="editFile(item)"
                 />
-            <Button
+            <!-- <Button
                 btn-type="isBrandSecondary"
                 btn-icon="TrashIcon"
                 :title="translations?.businessFiles?.deleteFile"
                 size="sm"
                 @click="deleteFile(item)"
-                />
+                /> -->
         </template>
         <template #actions="{ item }">
             <Button
