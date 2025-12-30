@@ -41,29 +41,6 @@ class SecurePolicy extends Policy
                 'data:',
                 'blob:',
             ]);
-        }else {
-            // local: allow everything
-            $this->addDirective(Directive::DEFAULT, Keyword::SELF);
-            $this->addDirective(Directive::CONNECT, [
-                Keyword::SELF,
-                'ws://localhost:5173',
-                'ws://[::1]:5173',
-                'http://localhost:5173',
-                'http://[::1]:5173',
-            ]);
-            $this->addDirective(Directive::SCRIPT, [
-                Keyword::SELF,
-                Keyword::UNSAFE_INLINE,
-            ]);
-            $this->addDirective(Directive::STYLE, [
-                Keyword::SELF,
-                Keyword::UNSAFE_INLINE,
-            ]);
-            $this->addDirective(Directive::IMG, [
-                Keyword::SELF,
-                'data:',
-                'blob:',
-            ]);
-        }
+        } 
     }
 }

@@ -15,14 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
             \App\Http\Middleware\HandleBusinessLanguage::class,
             \App\Http\Middleware\HandleCors::class,
-            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,        
+            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,   
+            \Spatie\Csp\AddCspHeaders::class,
+            \App\Http\Middleware\HandleSecurityHeaders::class 
         ];
-
-        // Only enable CSP outside local environment
-       if (env('APP_ENV') !== 'local') {
-            $web[] = \Spatie\Csp\AddCspHeaders::class;
-             \App\Http\Middleware\HandleSecurityHeaders::class;
-        }
+ 
         $middleware->web(append: $web);
         $middleware->alias([
             'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
