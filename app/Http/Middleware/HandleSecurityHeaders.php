@@ -7,10 +7,9 @@ use Closure;
 class HandleSecurityHeaders
 {
     public function handle($request, Closure $next)
-    {
-        $response = $next($request);
+    { 
         if (app()->environment('local')) {
-            return $response;
+            return $next($request);
         }
         return $response
             ->header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload')

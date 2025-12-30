@@ -73,7 +73,7 @@
     </GuestLayout>
 </template>
 
-<script setup>
+<script setup :nonce="$page.props.cspNonce">
 import Checkbox from '@/Components/Forms/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/Forms/InputError.vue';
@@ -108,10 +108,14 @@ const form = useForm({
         loading.value = type
         loadingMsg.value = msg
     }
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
-};
+    const submit = () => {
+        setLoadingMsg(true, translations.value?.welcome?.loadingLogIn)
+        form.post(route('login'), {
+            onFinish: () =>{ 
+                form.reset('password')
+                setLoadingMsg(false);
+            }
+        });
+    };
 </script>
 

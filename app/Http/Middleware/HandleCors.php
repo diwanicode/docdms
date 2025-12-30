@@ -9,9 +9,13 @@ class HandleCors
 {
     public function handle(Request $request, Closure $next)
     {
+        if (app()->environment('local')) {
+            return $next($request);
+        }
         $allowedOrigins = [
             config('app.url'),          // e.g., https://dev.docdms.com
-            'https://dev.docdms.com',   // production
+           'https://docdms.com', 
+           'https://dev.docdms.com',   // production
         ];
 
         $origin = $request->headers->get('Origin');

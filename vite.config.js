@@ -17,4 +17,14 @@ export default defineConfig({
             },
         }),
     ],
+    server: {
+        host: 'localhost',  
+        port: 5173,
+    },
+    css: {
+      devSourcemap: false,
+    },
+    build: {
+     cssCodeSplit: true,
+    }
 });
