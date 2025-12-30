@@ -29,16 +29,17 @@ class BusinessSeeder extends Seeder
                 'short' => 'd.o.o',
                 'country_id' => 1,
             ],
+             [
+                'name' => 'Dioničko društvo',
+                'short' => 'd.d',
+                'country_id' => 1,
+            ] ,
             [
                 'name' => 'Obrt',
                 'short' => 'OD',
                 'country_id' => 1,
             ],
-             [
-                'name' => 'Dioničko društvo',
-                'short' => 'd.d',
-                'country_id' => 1,
-            ]             
+                        
         ]);
         Business::insert([
             [

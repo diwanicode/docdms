@@ -13,18 +13,23 @@ class BusinessDepartment extends Model
 
      protected $fillable = [
         'business_id', 
+        'key',
         'name',
         'description',
     ];
 
   
-    protected static function booted()
+    /**
+     * GUARANTEE key on EVERY new model instance
+     * (seeders, relations, factories, runtime)
+     */
+    public function __construct(array $attributes = [])
     {
-        static::creating(function ($model) { 
-            if (empty($model->key)) {
-                $model->key = Str::uuid()->toString();
-            }
-        });
+        if (! array_key_exists('key', $attributes)) {
+            $attributes['key'] = (string) Str::uuid();
+        }
+
+        parent::__construct($attributes);
     }
     public function permissions()
     {
