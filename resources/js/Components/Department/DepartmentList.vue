@@ -27,22 +27,22 @@
         </template>     
         <template #row-actions="{ item }">
         <div class="flex gap-2">
-            <Button
-            btn-type="isBrandSecondary"
-            btn-icon="PencilSquareIcon"
-            :title="translations?.businessDepartments?.editDepartment"
-            size="sm"
+            <Button  
+                btn-type="isBrandSecondary"
+                btn-icon="PencilSquareIcon"
+                :title="translations?.businessDepartments?.editDepartment"
+                size="sm"
             @click="editDepartment(item)" />
-            <Button
-            btn-type="isBrandSecondary"
-            btn-icon="TrashIcon"  
-            :title="translations?.businessDepartments?.deleteDepartment"
-            size="sm"
-            @click="openDeleteDepartmentModal(item)" />
+            <Button v-if="can('departments.delete')"
+                btn-type="isBrandSecondary"
+                btn-icon="TrashIcon"  
+                :title="translations?.businessDepartments?.deleteDepartment"
+                size="sm"
+                @click="openDeleteDepartmentModal(item)" />
         </div>
         </template>
         <template #actions="{ item }">
-            <Button
+            <Button v-if="can('departments.create')"
                 btn-type="isBrandSecondary"
                 btn-icon="PlusCircleIcon"
                 :text="translations?.businessDepartments?.createDepartment"
@@ -85,6 +85,7 @@
   import Button from "@/Components/Forms/Button.vue";
   import Modal from '@/Components/Core/Modal.vue'
   import DepartmentForm from "@/Components/Department/DepartmentForm.vue";
+  import { usePermissions } from '@/Composables/usePermissions'
 
     const props = defineProps({
         business: Object, 
@@ -103,7 +104,9 @@
     const page = usePage();
     const translations = computed(() => page.props.translations || {});
     const flashMsg = computed(() => page.props.flash);
-  
+    
+    const { can } = usePermissions()
+
     const { getNameInitials} = useDateUtils(); 
     const showModalDepartment=ref(false);
     const showModalDeleteDepartment=ref(false);

@@ -30,7 +30,7 @@ class CounturyFileController extends Controller
             $translations = $data['translations'];
             $message = $translations['businessFiles']['successCreate'];
                
-            return redirect()->back() ->with('success', $message);
+            return redirect()->back()->with('success', $message);
         } catch (\Throwable $e) {
             Log::error('Error storing service: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
 
@@ -48,7 +48,7 @@ class CounturyFileController extends Controller
             $translations = $data['translations'];
             $message = $translations['businessFiles']['successUpdate'];
                
-            return redirect()->back() ->with('success', $message);
+            return redirect()->back()->with('success', $message);
         } catch (\Throwable $e) {
             Log::error('Error storing service: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
 

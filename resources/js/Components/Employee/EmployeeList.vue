@@ -39,7 +39,7 @@
               <ButtonToggle :model-value="value" color="brand" :disabled="true" />
           </template>
         <template #row-actions="{ item }">
-            <Button v-if="can('employees.edit')"
+            <Button v-if="can('employees.update')"
                 btn-type="isBrandSecondary"
                 btn-icon="PencilSquareIcon"
                 :title="translations?.general?.edit"

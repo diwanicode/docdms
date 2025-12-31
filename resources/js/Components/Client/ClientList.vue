@@ -43,12 +43,12 @@
               <ButtonToggle :model-value="value" color="brand" :disabled="true" />
           </template>
         <template #row-actions="{ item }">
-            <Button
+            <Button v-if="can('clients.update')"
                 btn-type="isBrandSecondary"
                 btn-icon="PencilSquareIcon"
                 :title="translations?.general?.edit"
                 size="sm"
-                @click="editEmployeee(item)"
+                @click="editClient(item)"
                 />
         </template>
          <template #actions="{ item }">
@@ -114,7 +114,7 @@
      const selectedClient=ref(null);
     const isEdit= ref(false);
 
-    const editEmployeee =(row)=>{
+    const editClient =(row)=>{
         showModalClient.value=true;
         selectedClient.value=row;
         isEdit.value=true;

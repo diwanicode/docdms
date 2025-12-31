@@ -34,7 +34,7 @@ class BusinessClientController extends Controller
             $translations = $data['translations'];
             $message = $translations['businessClients']['successCreate'];
            //  $message = str_replace('{item}', $serviceName, $translations['messages']['success']['confirmBooking']);   
-            return redirect()->back() ->with('success', $message);
+            return redirect()->back()->with('success', $message);
         } catch (\Throwable $e) {
             Log::error('Error storing clinet: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
 
@@ -52,7 +52,7 @@ class BusinessClientController extends Controller
             $translations = $data['translations'];
             $message = $translations['businessClients']['successUpdate'];
                
-            return redirect()->back() ->with('success', $message);
+            return redirect()->back()->with('success', $message);
         } catch (\Throwable $e) {
             Log::error('Error updating client: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
 

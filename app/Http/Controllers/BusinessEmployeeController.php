@@ -30,7 +30,7 @@ class BusinessEmployeeController extends Controller
             $translations = $data['translations'];
             $message = $translations['businessEmployees']['successCreate'];
            //  $message = str_replace('{item}', $serviceName, $translations['messages']['success']['confirmBooking']);   
-            return redirect()->back() ->with('success', $message);
+            return redirect()->back()->with('success', $message);
         } catch (\Throwable $e) {
             Log::error('Error storing employee: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
 
@@ -48,7 +48,7 @@ class BusinessEmployeeController extends Controller
             $translations = $data['translations'];
             $message = $translations['businessEmployees']['successUpdate'];
                
-            return redirect()->back() ->with('success', $message);
+            return redirect()->back()->with('success', $message);
         } catch (\Throwable $e) {
             Log::error('Error updating employee: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
 

@@ -55,7 +55,7 @@
               <ButtonToggle :model-value="value" color="brand" :disabled="true" />
           </template>
         <template #row-actions="{ item }">
-            <Button
+            <Button v-if="can('files.update')"
                 btn-type="isBrandSecondary"
                 btn-icon="PencilSquareIcon"
                 :title="translations?.businessFiles?.editFile"
@@ -71,7 +71,7 @@
                 /> -->
         </template>
         <template #actions="{ item }">
-            <Button
+            <Button v-if="can('files.create')"
                 btn-type="isBrandSecondary"
                 btn-icon="PlusCircleIcon"
                 :text="translations?.businessFiles?.createFile"
@@ -111,7 +111,8 @@
     import Button from "@/Components/Forms/Button.vue";
     import Modal from '@/Components/Core/Modal.vue'
     import FileForm from "@/Components/File/FileForm.vue";
-    
+    import { usePermissions } from '@/Composables/usePermissions'
+
     const props = defineProps({
         business: Object, 
         businessClients:{
@@ -132,7 +133,7 @@
     const translations = computed(() => page.props.translations || {});
     const flashMsg = computed(() => page.props.flash); 
  
-
+    const { can } = usePermissions()
 
    const { formatDate, getNameInitials} = useDateUtils();
     const formattedDate = (dateString) => { 
