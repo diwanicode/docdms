@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;  
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Business\BusinessClientResource;
+use App\Http\Resources\Business\BusinessClientDropdownResource;
 use App\Models\User;
 use App\Models\Business;
 use App\Models\BusinessEmployee;
@@ -22,14 +23,27 @@ class BusinessClientRepository
     {
         return $business->businessClients()->where('client_key',$uuid)->first();
     }
+    public function findClientById(Business $business, int $id)
+    {
+        return $business->businessClients()->where('id',$id)->first();
+    }
+    public function findClientsByBusinessDropdown(Business $business, bool $onlyColumns = false)
+    {
+        $query = $business->businessClients() 
+                            ->where('is_active',true)
+                            ->get();  
+        return BusinessClientDropdownResource::collection($query)->toArray(request()); 
+    }
     public function findClientsByBusiness(Business $business, bool $onlyColumns = false)
     {
-        $query =  $business->businessClients()->with(['businessType','country','businessEmployee']);
+        $query =  $business->businessClients()
+                            ->orderBy('is_active','desc')
+                            ->with(['businessType','country','businessEmployee']);
         if ($onlyColumns) {
             return BusinessClientResource::columns($business);
         }
-        $employees =$query->get();
-        return BusinessClientResource::collection($employees)->toArray(request());  
+        $clients =$query->get();
+        return BusinessClientResource::collection($clients)->toArray(request());  
     }
     public function storeClient(Business $business,BusinessEmployee $businessEmployee, User $user, array $data)
     {
@@ -48,7 +62,8 @@ class BusinessClientRepository
                         'address'      => $data['address'],
                         'start_date'   => Carbon::parse($data['start_date'])->format('Y-m-d'),
                         'end_date'     => $data['end_date'] ?? null,
-                        'is_active'    => $data['is_active'] 
+                        'is_active'    => $data['is_active'],
+                        'note'    => $data['note']  
                     ]);
         } catch (\Exception $e) {
             Log::error("Client store failed in repository", [
@@ -78,7 +93,8 @@ class BusinessClientRepository
                         'address'      => $data['address'],
                         'start_date'   => Carbon::parse($data['start_date'])->format('Y-m-d'),
                         'end_date'     => $data['end_date'] ?? null,
-                        'is_active'    => $data['is_active'] 
+                        'is_active'    => $data['is_active'],
+                        'note'    => $data['note']
                     ]);
         } catch (\Exception $e) {
             Log::error("Client update failed in repository", [

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full">
+  <div class="relative w-full mt-2">
     <!-- Input field -->
     <div class="relative">
       <input

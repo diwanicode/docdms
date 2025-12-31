@@ -36,6 +36,10 @@
             //TODO Emina add logo and landscape picture
             return $this->businessRepository->findBusinessDetailsBySlug($business);
         } 
+        public function getBusinessEmployeesDropdown(Business $business, bool $onlyColumns = false)
+        {
+            return $this->businessEmployeeRepository->findEmployeesByBusinessDropdown($business,$onlyColumns );
+        } 
         public function getBusinessEmployees(Business $business, bool $onlyColumns = false)
         {
             return $this->businessEmployeeRepository->findEmployeesByBusiness($business,$onlyColumns );
@@ -51,6 +55,10 @@
         public function getBusinessClients(Business $business, bool $onlyColumns = false)
         {
             return $this->businessClientRepository->findClientsByBusiness($business,$onlyColumns);
+        } 
+        public function getBusinessClientsDropdown(Business $business, bool $onlyColumns = false)
+        {
+            return $this->businessClientRepository->findClientsByBusinessDropdown($business,$onlyColumns);
         } 
          public function getBusinessDepartments(Business $business, bool $onlyColumns = false)
         {

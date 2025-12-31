@@ -20,6 +20,10 @@ class BusinessClientService
                                   public BusinessEmployeeDepartmentRepository $businessEmployeeDepartmentRepository)
     {            
     }
+    public function getBusinessClientById(Business $business, int $id)
+    {
+        return $this->businessClientRepository->findClientById($business, $id);
+    }
     public function storeBusinessClient(Business $business, BusinessEmployee $businessEmployee, array $data)
     { 
         try {

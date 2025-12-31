@@ -10,7 +10,7 @@
       />
        <InputError :message="basicErrors?.name || form.errors.name"/>
     </div>
-
+ 
 
     <!-- Employee -->
     <div>
@@ -76,7 +76,7 @@
         },
     });
 
-    const emit = defineEmits(['close-file-modal']);
+    const emit = defineEmits(['close-department-modal']);
         
     const page = usePage();
     const translations = computed(() => page.props.translations || {});
@@ -96,7 +96,7 @@
           forceFormData: true,
 
           onSuccess: () => { 
-              emit('close-file-modal')
+              emit('close-department-modal')
               form.reset()
           },
 

@@ -60,13 +60,13 @@
                    :department-data="selectedDepartment"
                    :permissons="permissons"
                    :is-edit="isEdit"
-                    @close-file-modal="closeModalFile()" />
+                    @close-department-modal="closeModalFile()" />
     </Modal>
      <Modal :show="showModalDeleteDepartment"
         :title="translations?.businessDepartments?.deleteDepartment"
         maxWidth="2xl"
         @close="showModalDeleteDepartment = false"> 
-           <p>  {{ translations?.businessDepartments?.deleteDepartmentNote }} <span class=" font-bold text-brandColor-800"> {{ selectedDepartment.name }}</span> ?</p>   
+           <p>  {{ translations?.businessDepartments?.deleteDepartmentNote }} <span class=" font-bold text-brandColor-800"> {{ selectedDepartment?.name }}</span> ?</p>   
      
           <div class="mt-4 flex items-center justify-end">
             <Button btnType="isBrandSecondary" :text="translations?.general?.cancel" @click="showModalDeleteDepartment = false"/>

@@ -10,19 +10,33 @@
       @click="!disabled && toggleSwitch()"
     >
       <div
-        class="transition ease-in-out duration-300 rounded-full h-5 w-5 shadow"
+        class="transition ease-in-out duration-300 rounded-full h-5 w-5 shadow flex items-center justify-center"
         :class="[
           modelValue
             ? 'bg-brandColor-600 transform translate-x-full'
             : 'bg-baseColor-300'
         ]"
-      ></div>
+      >
+        <!-- ACTIVE -->
+        <CheckIcon
+          v-if="modelValue"
+          class="h-3 w-3 text-white"
+        />
+
+        <!-- INACTIVE -->
+        <XMarkIcon
+          v-else
+          class="h-3 w-3 text-baseColor-600"
+        />
+      </div>
     </button>
   </div>
 </template>
 
+
 <script setup>
 import { computed } from "vue";
+import { CheckIcon, XMarkIcon } from "@heroicons/vue/20/solid";
 
 const props = defineProps({
   modelValue: {

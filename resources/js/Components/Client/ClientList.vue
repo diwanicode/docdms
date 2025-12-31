@@ -84,6 +84,7 @@
     import Modal from '@/Components/Core/Modal.vue'
     import { usePermissions } from '@/Composables/usePermissions'
     import ClientForm from '@/Components/Client/ClientForm.vue'
+    
     const props = defineProps({
         business: Object, 
         businessClients:{

@@ -43,15 +43,20 @@ Route::get('/dashboard', function () {
             Route::get('/calendar', [BusinessController::class, 'calendar'])->name('business.calendar'); 
             Route::get('/employees', [BusinessController::class, 'employees'])->name('business.employees');
             Route::get('/clients', [BusinessController::class, 'clients'])->name('business.clients');
+           
             Route::get('/files', [BusinessController::class, 'files'])->name('business.files');
             Route::post('/files/{businessClient:client_key}/store', [CounturyFileController::class, 'storeFile'])->name('business.files.store');
             Route::post('/files/{businessFile:file_key}/update', [CounturyFileController::class, 'updateFile'])->name('business.files.update');
             Route::get('/files/{businessFile:file_key}/download', [CounturyFileController::class, 'downloadFile'])->name('business.files.download');
+            Route::delete('/files/{businessFile:file_key}/destroy', [CounturyFileController::class, 'deleteFileManual'])->name('business.files.destroy');
+          
             Route::post('/departments/store', [BusinessDepartmentController::class, 'storeDepartment'])->name('business.departments.store');
             Route::post('/departments/{businessDepartment:key}/update', [BusinessDepartmentController::class, 'updateDepartment'])->name('business.departments.update');
             Route::delete('/departments/{businessDepartment:key}/destroy', [BusinessDepartmentController::class, 'deleteDepartment'])->name('business.departments.destroy');
+           
             Route::post('/employees/store', [BusinessEmployeeController::class, 'storeEmployee'])->name('business.employees.store');
             Route::post('/employees/{businessEmployee:employee_key}/update', [BusinessEmployeeController::class, 'updateEmployee'])->name('business.employees.update');
+         
             Route::post('/clients/store', [BusinessClientController::class, 'storeClient'])->name('business.clients.store');
             Route::post('/clients/{businessClient:client_key}/update', [BusinessClientController::class, 'updateClient'])->name('business.clients.update');
         });

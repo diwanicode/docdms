@@ -1,7 +1,6 @@
 <template>
-  <form @submit.prevent="submit" class="space-y-5">
-
-    <!-- Client -->
+  <form @submit.prevent="submit" class="space-y-5"> 
+    <!-- Client --> 
     <div>
       <InputLabel :value="translations?.businessFiles?.client" />
       <InputDropdown

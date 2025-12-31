@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Business\BusinessFileRepository;
 use App\Services\Business\BusinessService;
+use App\Services\Business\BusinessClientService;
 use App\Services\Country\CountryFileService;
 use Illuminate\Support\Str;
 use Carbon\Carbon; 
@@ -18,6 +19,7 @@ class BusinessFileService
 {
     public function __construct(  public BusinessFileRepository $businessFileRepository,
                                   public BusinessService $businessService,
+                                  public BusinessClientService $businessClientService,
                                   protected CountryFileService $countryFileService)
     {            
     }
@@ -69,7 +71,7 @@ class BusinessFileService
             ];
         }
     }
-     public function updateBusinessFileManual(Business $business,BusinessFile $file, User $user, array $data)
+    public function updateBusinessFileManual(Business $business,BusinessFile $file, User $user, array $data)
     { 
         try {
             $businessClient = $this->businessService->getBusinessClientByUuid($business,$data['business_client_id']);
@@ -124,6 +126,33 @@ class BusinessFileService
             ];
         }
     }
+    public function deleteBusinessFileManual(Business $business, BusinessFile $file)
+    { 
+        try {
+            Log::info('delete');
+              Log::info($business);
+            Log::info($file);
+            DB::transaction(function () use ($business, $file) { 
+                $client = $this->businessClientService->getBusinessClientById($business, $file->business_client_id);
+                $this->deleteFileFromStorage($business, $file, $client->client_key);
+                $file->delete();  
+            });
+
+            return [
+                'success' => true,
+                'message' => 'File deleted successfully.'
+            ];
+        } catch (\Exception $e) {
+            Log::error('Error deleting file 2', [ 
+                'error' => $e->getMessage(),
+            ]);
+            return [
+                'success' => false,
+                'message' => 'Could not delete the file. Please try again.',
+                'error' => $e->getMessage(),
+            ];
+        }
+    }
     public function uploadFile(Business $business, string $clientId, array $data): array 
     {
         $year = now()->year;
@@ -148,14 +177,9 @@ class BusinessFileService
         ];
     }
     public function replaceFile( Business $business,BusinessFile $businessFile, string $clientKey,array $data ): void
-     {
+    {
         // delete old file safely
-        Storage::disk('public')->delete(
-            "businesses/{$business->slug}/files/{$clientKey}/"
-            . Carbon::parse($businessFile->created_at)->year
-            . "/{$businessFile->fileCategory->slug}/{$businessFile->stored_name}"
-        );
-
+        $this->deleteFileFromStorage($business, $businessFile, $clientKey);
         // upload new file
         $fileMeta = $this->uploadFile($business, $clientKey, $data);
 
@@ -167,6 +191,15 @@ class BusinessFileService
             'size'          => $fileMeta['size'],
             'checksum'      => $fileMeta['checksum'],
         ]);
+    }
+    public function deleteFileFromStorage(Business $business, BusinessFile $businessFile, string $clientKey)
+    {
+        // delete old file safely
+        Storage::disk('public')->delete(
+            "businesses/{$business->slug}/files/{$clientKey}/"
+            . Carbon::parse($businessFile->created_at)->year
+            . "/{$businessFile->fileCategory->slug}/{$businessFile->stored_name}"
+        );
     }
 
 }

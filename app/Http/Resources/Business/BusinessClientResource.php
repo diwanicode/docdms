@@ -21,7 +21,9 @@ class BusinessClientResource extends JsonResource
             'start_date' => $this->start_date 
                                 ? Carbon::parse($this->start_date)->format('M j, Y') 
                                 : null,
-            'end_date' => $this->end_date, 
+            'end_date' => $this->end_date 
+                                ? Carbon::parse($this->end_date)->format('M j, Y') 
+                                : null, 
             'active' => $this->is_active,
             'business_type_id' =>   $this->businessType->id  ?? null,
             'type' =>   $this->businessType->short  ?? null,
@@ -41,7 +43,8 @@ class BusinessClientResource extends JsonResource
             'employee',       
             'start_date',
             'active', 
-            'note',
+            'end_date',
+           
         ];
 
         if (function_exists('mapColumnsWithLabels') && $business) {

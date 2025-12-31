@@ -26,7 +26,8 @@ class BusinessClientRequest extends FormRequest
             'end_date' => ['nullable', 'date'],
             'address' => ['nullable', 'string'],
             'city' => ['nullable', 'string'],
-            'is_active' => ['required', 'bool']
+            'is_active' => ['required', 'bool'],
+            'note' => ['nullable', 'string'],
         ]; 
     }
 

@@ -26,7 +26,7 @@ class BusinessController extends Controller
         Log::info( 'show business');
         $businessDepartments = $this->businessService->getBusinessDepartments($business);        
         $businessDepartmentsColumns = $this->businessService->getBusinessDepartments($business,true);
-        $businessEmployees =  $this->businessService->getBusinessEmployees($business); 
+        $businessEmployees =  $this->businessService->getBusinessEmployeesDropdown($business); 
         $permissons =   $this->businessService->getBusinessPermissions($business);
         return Inertia::render('Business/View',[
             'business'=>BusinessResource::make($business)->resolve(),
@@ -64,7 +64,7 @@ class BusinessController extends Controller
     }
     public function files(Business $business)
     {
-        $businessClients = $this->businessService->getBusinessClients($business);
+        $businessClients = $this->businessService->getBusinessClientsDropdown($business);
         
         $businessFiles = $this->businessService->getBusinessFiles($business);  
         $businessFilesColumns = $this->businessService->getBusinessFiles($business,true);

@@ -56,6 +56,24 @@ class CounturyFileController extends Controller
         }
     }
 
+     public function deleteFileManual(Business $business,BusinessFile $businessFile)
+    {
+        try { 
+            Log::info('deleteFileManual');
+              Log::info($business);
+            $this->businessFileService->deleteBusinessFileManual($business,$businessFile);
+         
+            $data = getTranslations($business->lang);
+            $translations = $data['translations'];
+            $message = $translations['businessFiles']['successDelete'];
+               
+            return redirect()->back() ->with('success', $message);
+        } catch (\Throwable $e) {
+            Log::error('Error deleting file 1: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
+            return redirect()->back()->with('error', 'Failed to delete file.');
+        }
+    }
     public function downloadFile(Business $business, string $fileKey)
     {
         $file = BusinessFile::where('file_key', $fileKey)->firstOrFail();
@@ -76,5 +94,6 @@ class CounturyFileController extends Controller
             $file->original_name
         );
     }
+
 
 }

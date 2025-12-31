@@ -31,9 +31,16 @@ class BusinessEmployeeRepository
                 ->whereIn('employee_key',$uuids) ->pluck('id')
                 ->toArray();
     }
+    public function findEmployeesByBusinessDropdown(Business $business, bool $onlyColumns = false)
+    {
+        return $business->businessEmployees()
+                            ->select('employee_key as id','name')
+                            ->where('is_active',true)
+                            ->get();  
+    }
     public function findEmployeesByBusiness(Business $business, bool $onlyColumns = false)
     {
-        $query =  $business->businessEmployees()->with('departments');
+        $query =  $business->businessEmployees()->orderBy('is_active','desc')->with('departments');
         if ($onlyColumns) {
             return BusinessEmployeeResource::columns($business);
         }
