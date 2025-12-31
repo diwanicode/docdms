@@ -66,6 +66,7 @@ class BusinessClientRepository
     public function updateClient( BusinessClient $businessClient, array $data)
     {
         try { 
+            Log::info($data);
             return  $businessClient->update([
                         'name'         => $data['name'],  
                         'contact'      => $data['contact'],  

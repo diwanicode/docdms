@@ -50,7 +50,7 @@
       <InputLabel :value="translations?.businessClients?.number" />
       <TextInput
         type="text"
-        v-model="form.phone_number"
+        v-model="form.number"
         :placeholder="translations?.businessClients?.enterNumber"
       />
        <InputError :message="basicErrors?.number || form.errors.number"/>
