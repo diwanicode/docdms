@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
           Log::info('in');
-        $user =  User::where('email', $request->email)->where('is_active',true)->first();
+        $user =  User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),

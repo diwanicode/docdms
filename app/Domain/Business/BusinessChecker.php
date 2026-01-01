@@ -34,7 +34,7 @@ class BusinessChecker
          Log::info('$isOwner ' .$isOwner);
            Log::info('$isEmployee ' .$isEmployee);
              Log::info('$isSystemAdmin ' .$isSystemAdmin);
-        if($isOwner ||$isEmployee || $isSystemAdmin){
+        if($isOwner || $isEmployee){
             return true;
         }
         return false;

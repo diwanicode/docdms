@@ -99,6 +99,7 @@ class BusinessEmployeeRepository
         return $business->businessEmployees()
             ->where('user_id', $user->id)
             ->where('is_owner', true)
+            ->where('is_active', true)
             ->exists();
     }
       /**
@@ -113,6 +114,7 @@ class BusinessEmployeeRepository
         return $business->businessEmployees()
             ->where('user_id', $user->id)
             ->where('is_working', true)
+            ->where('is_active', true)
             ->exists();
     }
     public function isSystemAdmin(User $user): bool

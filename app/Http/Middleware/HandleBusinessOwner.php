@@ -23,7 +23,15 @@ class HandleBusinessOwner
     {
         $user = Auth::user();
         $business = $request->route('business'); // Business model from route model binding
-      
+         Log::info('HandleBusinessOwner');
+        if (!$business) {
+            return $next($request);
+        }
+
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
         if (!$user || !$business) {
             return redirect()->route('welcome')->with('message', 'Unauthorized access!'); 
         }
@@ -35,6 +43,7 @@ class HandleBusinessOwner
         $hasBusinessAccess = $this->businessChecker->employeeHasBusinessAccess($business,$user);
         
         if (!$hasBusinessAccess) {
+            Auth::logout();
             return redirect()->route('welcome')->with('message', 'Unauthorized access!');
         }
 
