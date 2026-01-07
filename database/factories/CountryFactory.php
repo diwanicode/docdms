@@ -17,7 +17,13 @@ class CountryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => 'Bosnia',
+            'short' => 'BA',
+            'phone_code' => '+387',
+            'continent' => 'Europe',
+            'capital' => 'Sarajevo',
+            'currency' => 'BAM',
+            'flag' => 'Sa',
         ];
     }
 }

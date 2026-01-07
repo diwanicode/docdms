@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         $languageBs = 1;
         $languageEn = 2;
         Language::insert([
-            ['code' => 'bs', 'name' => 'Bosnian'],
-            ['code' => 'en', 'name' => 'English'],
+            ['code' => 'bs','short' => 'bos', 'name' => 'Bosnian'],
+            ['code' => 'en','short' => 'eng', 'name' => 'English'],
         ]);
 
         $this->call([          
